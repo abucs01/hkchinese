@@ -27,10 +27,47 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
           <div class="navbar-header">
-              <a class="navbar-brand" href="index.html">Chinese Search Demo</a>
+              <a class="navbar-brand" href="index.html">Redmart Search Engine</a>
           </div>
-          <!-- /.navbar-header -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ><a href="#/home">Home <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Elastic Search Index<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/search">Index</a></li>
+                            <li><a href="#/advsearch">Mapping</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"> Settings </a></li>
+                        </ul>
+
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chinese Search <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/search">Simple Search</a></li>
+                            <li><a href="#/advsearch">Advanced Search</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"> TODO </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MIX Chinese Search <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/search">TODO</a></li>
+                            <li><a href="#/advsearch">TODO</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"> TODO </a></li>
+                        </ul>
+
+                    </li>
+
+                </ul>
+             </div>
+
         </nav>
+          <!-- /.navbar-header -->
+
 
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -56,6 +93,10 @@
     <script src="app/main/app.js"></script>
     <script src="app/search/searchCtrl.js"></script>
     <script src="app/search/searchService.js"></script>
+    <script src="app/home/homeCtrl.js"></script>
+    <script src="app/home/homeService.js"></script>
+    <script src="app/advsearch/advsearchCtrl.js"></script>
+    <script src="app/advsearch/advsearchService.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-mainApp.factory('searchService', ['$http', function ($http) {
+mainApp.factory('advsearchService', ['$http', function ($http) {
 	'use strict';
 	return {
 		 searchAll:  function (url,data) {

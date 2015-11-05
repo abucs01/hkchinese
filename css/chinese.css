@@ -33,8 +33,16 @@ body {
   display:inline;
   width: 60%;
   margin-left: 15px;
-  font-size: 31px;
+  font-size: 18px;
   height:100%
+}
+
+.search-lang-drop{
+    display:inline;
+    width: 100%;
+    margin-left: 15px;
+    font-size: 30px;
+    height:100%
 }
 .count-text-box{
   display:inline;
@@ -160,12 +168,12 @@ body {
 
 .btn-outline {
     color: inherit;
-    background-color: transparent;
+    background-color: #ee4054;
     transition: all .5s;
 }
 
 .btn-primary.btn-outline {
-    color: #428bca;
+    color: #fff;
 }
 
 .btn-success.btn-outline {
@@ -173,7 +181,7 @@ body {
 }
 
 .btn-info.btn-outline {
-    color: #5bc0de;
+    color: #ee4054;
 }
 
 .btn-warning.btn-outline {
