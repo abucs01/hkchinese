@@ -5,7 +5,7 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.totalCount=0;
-    var mainUrl = "http://localhost:9200/eng_chn_keyword/page/_search?explain" ;
+    var mainUrl = "http://10.0.1.213:9200/eng_chn_keyword/page/_search?explain" ;
     $scope.searchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
     //  var serviceURL = "data/chineseSearch.json";
@@ -60,7 +60,7 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
   }
 
     $scope.searchBoolean = function (){
-      var boolurl = "http://localhost:9200/hksearch/page/_search?size=30" ;
+      var boolurl = "http://10.0.1.213:9200/hksearch/page/_search?size=30" ;
       console.log("inside the searchBoolean");
       var q = JSON.stringify({
         "query": {

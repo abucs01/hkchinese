@@ -5,7 +5,7 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   $scope.test="ANGULAR TEST";
   $scope.results;
   $scope.heath;
-  var mainUrl = "http://localhost:9200/_cat/indices/*?pretty" ;
+  var mainUrl = "http://10.0.1.213:9200/_cat/indices/*?pretty" ;
   $scope.indexDetails = function(){
     console.log("inside indexDetails ===== "+$scope.searchText);
    // var q = JSON.stringify({"query":{"match_all":{}}});
@@ -22,7 +22,7 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   }
 
   $scope.healthDetails = function(){
-   var healthUrl = "http://localhost:9200/_cat/health?v";
+   var healthUrl = "http://10.0.1.213:9200/_cat/health?v";
     var errorFn = function(data){
       $scope.error = "No Data Found";
     }
