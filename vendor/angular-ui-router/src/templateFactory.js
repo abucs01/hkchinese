@@ -21,7 +21,7 @@ function $TemplateFactory(  $http,   $templateCache,   $injector) {
    * Creates a template from a configuration object. 
    *
    * @param {object} config Configuration object for which to load a template. 
-   * The following properties are search in the specified order, and the first one 
+   * The following properties are chineseSearch in the specified order, and the first one
    * that is defined is used to create the template:
    *
    * @param {string|object} config.template html string template or function to 

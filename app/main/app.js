@@ -13,13 +13,18 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider ) {
     }
     $stateProvider
         .state('search', {
-            url: '/search',
-            templateUrl: 'app/search/search.tpl.html',
+            url: '/chineseSearch',
+            templateUrl: 'app/chineseSearch/chineseSearch.tpl.html',
             controller: 'searchCtrl'
         })
-				.state('advsearch', {
-            url: '/advsearch',
-            templateUrl: 'app/advsearch/search.tpl.html',
+      .state('boolSearch', {
+          url: '/boolSearch',
+          templateUrl: 'app/chineseSearch/boolSearch.html',
+          controller: 'searchCtrl'
+      })
+				.state('mixChineseSearch', {
+            url: '/mixChineseSearch',
+            templateUrl: 'app/mixChineseSearch/mixChineseSearch.tpl.html',
             controller: 'advsearchCtrl'
         })
       .state('home', {
@@ -33,6 +38,8 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider ) {
         $urlRouterProvider.otherwise('/home');
 
 });
+
+
 mainApp.run(function ($log, $rootScope, $state, $urlRouter,$location) { // Inject Service to load data
     $log.debug("mainApp.run");
     $state.transitionTo('search');

@@ -8,7 +8,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
     var mainUrl = "http://localhost:9200/hksearch/page/_search?size=30" ;
     $scope.searchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
-    //  var serviceURL = "data/search.json";
+    //  var serviceURL = "data/chineseSearch.json";
       var q = JSON.stringify({"query":{"match_all":{}}});
       var errorFn = function(data){
 			$scope.error = "No Data Found";
@@ -18,7 +18,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
         console.log("successFn data"+JSON.stringify(data));
         $scope.results = data;
         $scope.totalCount = data.hits.total;
-        $state.go("advsearch");
+        $state.go("mixChineseSearch");
   		}
       advsearchService.searchAll(mainUrl,q).success(successFn).error(errorFn);
     }
@@ -43,7 +43,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
 
         $scope.results = data;
         $scope.totalCount = data.hits.total;
-        $state.go("advsearch");
+        $state.go("mixChineseSearch");
       }
       advsearchService.searchTitleOnly(mainUrl,q).success(successFn).error(errorFn);
 
@@ -73,7 +73,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
 
       $scope.results = data;
       $scope.totalCount = data.hits.total;
-      $state.go("advsearch");
+      $state.go("mixChineseSearch");
     }
     advsearchService.searchTitleOnly(mainUrl,q).success(successFn).error(errorFn);
 

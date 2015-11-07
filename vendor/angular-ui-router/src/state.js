@@ -470,8 +470,8 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * <a id='reloadOnSearch'></a>
    *
    * - **`reloadOnSearch = true`** - {boolean=} - If `false`, will not retrigger the same state 
-   *   just because a search/query parameter has changed (via $location.search() or $location.hash()). 
-   *   Useful for when you'd like to modify $location.search() without triggering a reload.
+   *   just because a chineseSearch/query parameter has changed (via $location.chineseSearch() or $location.hash()).
+   *   Useful for when you'd like to modify $location.chineseSearch() without triggering a reload.
    *
    * <a id='data'></a>
    *
@@ -640,7 +640,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
      *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
-     *    use this when you want to force a reload when *everything* is the same, including search params.
+     *    use this when you want to force a reload when *everything* is the same, including chineseSearch params.
      *
      * @returns {promise} A promise representing the state of the new transition.
      *
@@ -695,7 +695,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
      *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
-     *    use this when you want to force a reload when *everything* is the same, including search params.
+     *    use this when you want to force a reload when *everything* is the same, including chineseSearch params.
      *
      * @returns {promise} A promise representing the state of the new transition. See
      * {@link ui.router.state.$state#methods_go $state.go}.

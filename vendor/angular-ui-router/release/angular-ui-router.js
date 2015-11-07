@@ -78,7 +78,7 @@ function keys(object) {
  * IE8-safe wrapper for `Array.prototype.indexOf()`.
  *
  * @param {Array} array A JavaScript array.
- * @param {*} value A value to search the array for.
+ * @param {*} value A value to chineseSearch the array for.
  * @return {Number} Returns the array index value of `value`, or `-1` if not present.
  */
 function arraySearch(array, value) {
@@ -524,7 +524,7 @@ function $TemplateFactory(  $http,   $templateCache,   $injector) {
    * Creates a template from a configuration object. 
    *
    * @param {object} config Configuration object for which to load a template. 
-   * The following properties are search in the specified order, and the first one 
+   * The following properties are chineseSearch in the specified order, and the first one
    * that is defined is used to create the template:
    *
    * @param {string|object} config.template html string template or function to 
@@ -617,9 +617,9 @@ angular.module('ui.router.util').service('$templateFactory', $TemplateFactory);
  * @name ui.router.util.type:UrlMatcher
  *
  * @description
- * Matches URLs against patterns and extracts named parameters from the path or the search
+ * Matches URLs against patterns and extracts named parameters from the path or the chineseSearch
  * part of the URL. A URL pattern consists of a path pattern, optionally followed by '?' and a list
- * of search parameters. Multiple search parameter names are separated by '&'. Search parameters
+ * of chineseSearch parameters. Multiple chineseSearch parameter names are separated by '&'. Search parameters
  * do not influence whether or not a URL is matched, but their values are passed through into
  * the matched parameters returned by {@link ui.router.util.type:UrlMatcher#methods_exec exec}.
  * 
@@ -633,7 +633,7 @@ angular.module('ui.router.util').service('$templateFactory', $TemplateFactory);
  *   curly braces, they must be in matched pairs or escaped with a backslash.
  *
  * Parameter names may contain only word characters (latin letters, digits, and underscore) and
- * must be unique within the pattern (across both path and search parameters). For colon 
+ * must be unique within the pattern (across both path and chineseSearch parameters). For colon
  * placeholders or curly placeholders without an explicit regexp, a path parameter matches any
  * number of characters other than '/'. For catch-all placeholders the path parameter matches
  * any number of characters.
@@ -662,7 +662,7 @@ angular.module('ui.router.util').service('$templateFactory', $TemplateFactory);
  *
  * @property {string} sourcePath  The path portion of the source property
  *
- * @property {string} sourceSearch  The search portion of the source property
+ * @property {string} sourceSearch  The chineseSearch portion of the source property
  *
  * @property {string} regex  The constructed regex that will be used to match against the url when 
  *   it is time to determine which url will match.
@@ -709,7 +709,7 @@ function UrlMatcher(pattern) {
     id = m[2] || m[3]; // IE[78] returns '' for unmatched groups instead of null
     regexp = m[4] || (m[1] == '*' ? '.*' : '[^/]*');
     segment = pattern.substring(last, m.index);
-    if (segment.indexOf('?') >= 0) break; // we're into the search part
+    if (segment.indexOf('?') >= 0) break; // we're into the chineseSearch part
     compiled += quoteRegExp(segment) + '(' + regexp + ')';
     addParameter(id);
     segments.push(segment);
@@ -717,7 +717,7 @@ function UrlMatcher(pattern) {
   }
   segment = pattern.substring(last);
 
-  // Find any search parameter names and remove them from the last segment
+  // Find any chineseSearch parameter names and remove them from the last segment
   var i = segment.indexOf('?');
   if (i >= 0) {
     var search = this.sourceSearch = segment.substring(i);
@@ -744,7 +744,7 @@ function UrlMatcher(pattern) {
  *
  * @description
  * Returns a new matcher for a pattern constructed by appending the path part and adding the
- * search parameters of the specified pattern to this pattern. The current pattern is not
+ * chineseSearch parameters of the specified pattern to this pattern. The current pattern is not
  * modified. This can be understood as creating a pattern for URLs that are relative to (or
  * suffixes of) the current pattern.
  *
@@ -759,7 +759,7 @@ function UrlMatcher(pattern) {
  * @returns {ui.router.util.type:UrlMatcher}  A matcher for the concatenated pattern.
  */
 UrlMatcher.prototype.concat = function (pattern) {
-  // Because order of search parameters is irrelevant, we can add our own search
+  // Because order of chineseSearch parameters is irrelevant, we can add our own chineseSearch
   // parameters to the end of the new pattern. Parse the new pattern by itself
   // and then join the bits together, but it's much easier to do this on a string level.
   return new UrlMatcher(this.sourcePath + pattern + this.sourceSearch);
@@ -777,8 +777,8 @@ UrlMatcher.prototype.toString = function () {
  * @description
  * Tests the specified path against this matcher, and returns an object containing the captured
  * parameter values, or null if the path does not match. The returned object contains the values
- * of any search parameters that are mentioned in the pattern, but their value may be null if
- * they are not present in `searchParams`. This means that search parameters are always treated
+ * of any chineseSearch parameters that are mentioned in the pattern, but their value may be null if
+ * they are not present in `searchParams`. This means that chineseSearch parameters are always treated
  * as optional.
  *
  * @example
@@ -788,7 +788,7 @@ UrlMatcher.prototype.toString = function () {
  * ```
  *
  * @param {string} path  The URL path to match, e.g. `$location.path()`.
- * @param {Object} searchParams  URL search parameters, e.g. `$location.search()`.
+ * @param {Object} searchParams  URL chineseSearch parameters, e.g. `$location.chineseSearch()`.
  * @returns {Object}  The captured parameter values.
  */
 UrlMatcher.prototype.exec = function (path, searchParams) {
@@ -813,7 +813,7 @@ UrlMatcher.prototype.exec = function (path, searchParams) {
  * @methodOf ui.router.util.type:UrlMatcher
  *
  * @description
- * Returns the names of all path and search parameters of this pattern in an unspecified order.
+ * Returns the names of all path and chineseSearch parameters of this pattern in an unspecified order.
  * 
  * @returns {Array.<string>}  An array of parameter names. Must be treated as read-only. If the
  *    pattern has no parameters, an empty array is returned.
@@ -829,7 +829,7 @@ UrlMatcher.prototype.parameters = function () {
  *
  * @description
  * Creates a URL that matches this pattern by substituting the specified values
- * for the path and search parameters. Null values for path parameters are
+ * for the path and chineseSearch parameters. Null values for path parameters are
  * treated as empty strings.
  *
  * @example
@@ -839,7 +839,7 @@ UrlMatcher.prototype.parameters = function () {
  * ```
  *
  * @param {Object} values  the values to substitute for the parameters in this pattern.
- * @returns {string}  the formatted URL (path and optionally search part).
+ * @returns {string}  the formatted URL (path and optionally chineseSearch part).
  */
 UrlMatcher.prototype.format = function (values) {
   var segments = this.segments, params = this.params;
@@ -1662,8 +1662,8 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * <a id='reloadOnSearch'></a>
    *
    * - **`reloadOnSearch = true`** - {boolean=} - If `false`, will not retrigger the same state 
-   *   just because a search/query parameter has changed (via $location.search() or $location.hash()). 
-   *   Useful for when you'd like to modify $location.search() without triggering a reload.
+   *   just because a chineseSearch/query parameter has changed (via $location.chineseSearch() or $location.hash()).
+   *   Useful for when you'd like to modify $location.chineseSearch() without triggering a reload.
    *
    * <a id='data'></a>
    *
@@ -1832,7 +1832,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
      *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
-     *    use this when you want to force a reload when *everything* is the same, including search params.
+     *    use this when you want to force a reload when *everything* is the same, including chineseSearch params.
      *
      * @returns {promise} A promise representing the state of the new transition.
      *
@@ -1887,7 +1887,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
      *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
-     *    use this when you want to force a reload when *everything* is the same, including search params.
+     *    use this when you want to force a reload when *everything* is the same, including chineseSearch params.
      *
      * @returns {promise} A promise representing the state of the new transition. See
      * {@link ui.router.state.$state#methods_go $state.go}.

@@ -4,12 +4,11 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   $log.info('+ searchCtrl()');
   $scope.test="ANGULAR TEST";
   $scope.results;
-  $scope.totalCount=0;
-  var mainUrl = "http://localhost:9200/eng_chn_keyword/page/_search?explain" ;
-  $scope.searchAll = function(){
-    console.log("inside searchAll ===== "+$scope.searchText);
-    //  var serviceURL = "data/search.json";
-    var q = JSON.stringify({"query":{"match_all":{}}});
+  $scope.heath;
+  var mainUrl = "http://localhost:9200/_cat/indices/*?pretty" ;
+  $scope.indexDetails = function(){
+    console.log("inside indexDetails ===== "+$scope.searchText);
+   // var q = JSON.stringify({"query":{"match_all":{}}});
     var errorFn = function(data){
       $scope.error = "No Data Found";
     }
@@ -17,33 +16,26 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
       console.log("successFn data"+JSON.stringify(data));
 
       $scope.results = data;
-      $scope.totalCount = data.hits.total;
-      $state.go("search");
+      $state.go("home");
     }
-    homeService.searchAll(mainUrl,q).success(successFn).error(errorFn);
+    homeService.searchforElasticGetCall(mainUrl).success(successFn).error(errorFn);
   }
 
-  $scope.searchTitleOnly =function(){
-    console.log("inside searchTitleOnly");
-    var q = JSON.stringify({"query":{"match_phrase":{"chinese_title":$scope.searchText}}});
-    //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
+  $scope.healthDetails = function(){
+   var healthUrl = "http://localhost:9200/_cat/health?v";
     var errorFn = function(data){
       $scope.error = "No Data Found";
     }
     var successFn = function(data) {
       console.log("successFn data"+JSON.stringify(data));
 
-      $scope.results = data;
-      $scope.totalCount = data.hits.total;
-      $state.go("search");
+      $scope.health = data;
+      $state.go("home");
     }
-    homeService.searchTitleOnly(mainUrl,q).success(successFn).error(errorFn);
-
+    homeService.searchforElasticGetCall(mainUrl).success(successFn).error(errorFn);
   }
 
-  $scope.searchTitleDescription =function(){
-    console.log("inside searchTitleDescription");
-    //TODO
-  }
+
+
 
 });

@@ -65,7 +65,7 @@ function keys(object) {
  * IE8-safe wrapper for `Array.prototype.indexOf()`.
  *
  * @param {Array} array A JavaScript array.
- * @param {*} value A value to search the array for.
+ * @param {*} value A value to chineseSearch the array for.
  * @return {Number} Returns the array index value of `value`, or `-1` if not present.
  */
 function arraySearch(array, value) {
