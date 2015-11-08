@@ -1,11 +1,11 @@
-mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, $stateParams, advsearchService) {
+mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, $stateParams, advsearchService, urlConstants) {
 
     'use strict';
     $log.info('+ searchCtrl()');
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.totalCount=0;
-    var mainUrl = "http://10.0.1.213:9200/hksearch/page/_search?size=30" ;
+    var mainUrl = urlConstants.ADV_MAIN_URL;
     $scope.searchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
     //  var serviceURL = "data/chineseSearch.json";
