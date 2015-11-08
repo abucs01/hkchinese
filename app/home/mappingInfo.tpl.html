@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="page-header search-heading">
+
+                <div class="btn-group">
+
+                    Mapping Index:
+                    <select ng-model="searchMappingType"
+                            class="form-control search-small-drop-down btn btn-default dropdown-toggle"
+                            bs-selectbox>
+                        <option value=""
+                                disabled
+                                selected>Select..
+                        </option>
+                        <option value="cjk-simple">CJK - Simple Search Mapping</option>
+                        <option value="cjk-adv">CJK - Advance Search Mapping</option>
+
+                    </select>
+
+
+                </div>
+
+
+            </h4>
+
+            <div class="text-center">
+                <div class="col-lg-4">
+                    <button type="button"
+                            class="btn btn-outline btn-primary btn-lg btn-block"
+                            ng-click="mappingDetails()">View Mapping Details
+                    </button>
+                </div>
+
+
+            </div>
+
+            <br/>
+
+            <div class="lineSpace">
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-12">
+
+                    <pre>{{mapping | json}}</pre>
+
+                </div>
+                <!-- /.col-lg-12 -->
+
+            </div>
+        </div>
+    </div>
+</div>

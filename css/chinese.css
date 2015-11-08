@@ -45,6 +45,18 @@ body {
     height:100%
 }
 
+.lineSpace {
+    margin-top: 70px;
+}
+
+.search-small-drop-down{
+    display:inline;
+    width: 100%;
+    margin-left: 15px;
+    font-size: 20px;
+    height:100%
+}
+
 .search-lang-drop{
     display:inline;
     width: 100%;

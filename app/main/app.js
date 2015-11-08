@@ -19,7 +19,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider ) {
         })
       .state('boolSearch', {
           url: '/boolSearch',
-          templateUrl: 'app/chineseSearch/boolSearch.html',
+          templateUrl: 'app/chineseSearch/boolSearch.tpl.html',
+          controller: 'searchCtrl'
+      })
+      .state('advSearch', {
+          url: '/advSearch',
+          templateUrl: 'app/chineseSearch/advSearch.tpl.html',
           controller: 'searchCtrl'
       })
 				.state('mixChineseSearch', {
@@ -31,6 +36,11 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider ) {
           url: '/home',
           templateUrl: 'app/home/home.tpl.html',
           controller: 'homeCtrl'
+      })
+      .state('mapping', {
+        url: '/mapping',
+        templateUrl: 'app/home/mappingInfo.tpl.html',
+        controller: 'homeCtrl'
       })
 	      ;
 

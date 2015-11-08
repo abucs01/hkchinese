@@ -4,7 +4,9 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   $log.info('+ searchCtrl()');
   $scope.test="ANGULAR TEST";
   $scope.results;
-  $scope.heath;
+  $scope.health;
+  $scope.mapping;
+
   var mainUrl = "http://10.0.1.213:9200/_cat/indices/*?pretty" ;
   $scope.indexDetails = function(){
     console.log("inside indexDetails ===== "+$scope.searchText);
@@ -36,6 +38,23 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   }
 
 
+  $scope.mappingDetails = function(){
+    if($scope.searchMappingType == 'cjk-simple' ){
+      var healthUrl = "http://10.0.1.213:9200/eng_chn_keyword/_mapping";
+    }else if ($scope.searchMappingType == 'cjk-adv'){
+      var healthUrl = "http://localhost:9200/hksearch/_mapping";
+    }
 
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.mapping = data;
+      $state.go("mapping");
+    }
+    homeService.searchforElasticGetCall(healthUrl).success(successFn).error(errorFn);
+  }
 
 });
