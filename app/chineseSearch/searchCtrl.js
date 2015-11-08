@@ -1,12 +1,12 @@
-mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $stateParams, searchService) {
+mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $stateParams, searchService, urlConstants) {
 
     'use strict';
     $log.info('+ searchCtrl()');
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.totalCount=0;
-    var simpleSearchURL = "http://10.0.1.213:9200/eng_chn_keyword/page/_search?explain" ;
-    var advanceSearchURL = "http://10.0.1.213:9200/hksearch/page/_search?size=30" ;
+    var simpleSearchURL = urlConstants.SIMPLE_SEARCH_URL;
+    var advanceSearchURL = urlConstants.ADV_SEARCH_URL ;
     $scope.basicSearchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
     //  var serviceURL = "data/chineseSearch.json";
@@ -25,7 +25,7 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
     }
 
   $scope.cjkAnalyzerTest = function(){
-    var url = "http://localhost:9200/eng_chn_keyword/_analyze?analyzer=cjk";
+    var url = urlConstants.ANALYSER_URL;
   }
 
     $scope.basicSearchTitleOnly =function(){

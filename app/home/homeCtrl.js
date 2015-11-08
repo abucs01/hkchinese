@@ -1,4 +1,4 @@
-mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stateParams, homeService) {
+mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stateParams, homeService,urlConstants) {
 
   'use strict';
   $log.info('+ searchCtrl()');
@@ -7,7 +7,7 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   $scope.health;
   $scope.mapping;
 
-  var mainUrl = "http://10.0.1.213:9200/_cat/indices/*?pretty" ;
+  var mainUrl = urlConstants.MAIN_URL ;
   $scope.indexDetails = function(){
     console.log("inside indexDetails ===== "+$scope.searchText);
    // var q = JSON.stringify({"query":{"match_all":{}}});
@@ -24,7 +24,7 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
   }
 
   $scope.healthDetails = function(){
-   var healthUrl = "http://10.0.1.213:9200/_cat/health?v";
+   var healthUrl = urlConstants.HEALTH_URL;
     var errorFn = function(data){
       $scope.error = "No Data Found";
     }
@@ -40,9 +40,9 @@ mainApp.controller('homeCtrl', function ($scope, $rootScope, $log, $state, $stat
 
   $scope.mappingDetails = function(){
     if($scope.searchMappingType == 'cjk-simple' ){
-      var healthUrl = "http://10.0.1.213:9200/eng_chn_keyword/_mapping";
+      var healthUrl = urlConstants.MAPPING_SIMPLE_URL;
     }else if ($scope.searchMappingType == 'cjk-adv'){
-      var healthUrl = "http://localhost:9200/hksearch/_mapping";
+      var healthUrl = urlConstants.MAPPING_ADV_URL;
     }
 
     var errorFn = function(data){
