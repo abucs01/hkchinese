@@ -26,7 +26,7 @@ mainApp.constant('urlConstants', {
 
     "ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/_analyze?analyzer=cjk",
     //homeCtrl.js
-     "MAIN_URL" : "http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain/_cat/indices/*?pretty",
+     "MAIN_URL" : "http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/_cat/indices/*?pretty",
      "HEALTH_URL" : "http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain/_cat/health?v",
      "MAPPING_SIMPLE_URL" : "http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain/eng_chn_keyword/_mapping",
      "MAPPING_ADV_URL" : "http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain/hksearch/_mapping",
