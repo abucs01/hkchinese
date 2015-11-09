@@ -25,10 +25,10 @@
                     <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchAll()">View All Products </button>
                 </div>
                 <div class="col-lg-4">
-                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleAndDescriptionOnly()">Search in Title and Description</button>
+                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleAndDescriptionOnly(); analyzerForCJKAdvSearch(); analyzerForHanAdvSearch() ">Search in Title and Description</button>
                 </div>
                 <div class="col-lg-4">
-                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleOnly()">Search Title </button>
+                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleOnly(); analyzerForHanAdvSearch()">Search Title </button>
                 </div>
 
             </div>
@@ -38,6 +38,32 @@
                   Total Count:   <input ng-model="totalCount" class="form-control count-text-box" disabled="true">
                 </h3>
               </div>
+            </div>
+
+            <div class="text-center">
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        BI Gram
+                    </h3>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        <pre>{{cjkBiGram}}</pre>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        UNI and BI Gram
+                    </h3>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        <pre>{{hanGram}}</pre>
+                    </h3>
+                </div>
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-12">

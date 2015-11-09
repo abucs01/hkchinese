@@ -5,6 +5,8 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.cjkBiGram ;
+    $scope.smartCNGram ;
+    $scope.hanGram ;
     $scope.totalCount=0;
     var simpleSearchURL = urlConstants.SIMPLE_SEARCH_URL;
     var advanceSearchURL = urlConstants.ADV_SEARCH_URL ;
@@ -27,17 +29,14 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
     }
 
 
-  $scope.cjkAnalyzerUniGram = function() {
 
-    $scope.cjkAnalyzerTest = function() {
-      var url = urlConstants.ANALYSER_URL;
 
-    }
+
 
     $scope.cjkAnalyzerBIGram = function() {
       if ($scope.searchText != null) {
         console.log("cjkAnalyzerBIGram");
-        var cjkAnalyseUrl = "http://localhost:9200/eng_chn_keyword/_analyze?analyzer=cjk";
+       // var cjkAnalyseUrl = "http://localhost:9200/eng_chn_keyword/_analyze?analyzer=cjk";
         var errorFn = function(data) {
           $scope.error = "No Data Found";
         }
@@ -46,7 +45,7 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
           $scope.cjkBiGram = data;
         }
-        searchService.searchTitleOnly(cjkAnalyseUrl, $scope.searchText).success(successFn).error(errorFn);
+        searchService.searchTitleOnly(urlConstants.ANALYSER_URL, $scope.searchText).success(successFn).error(errorFn);
       }
 
     }
@@ -81,9 +80,9 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
         console.log("successFn data" + JSON.stringify(data));
         $scope.results = data;
         $scope.totalCount = data.hits.total;
-        $state.go("mixChineseSearch");
+        $state.go("advSearch");
       }
-      searchService.searchAll(simpleSearchURL, q).success(successFn).error(errorFn);
+      searchService.searchAll(advanceSearchURL, q).success(successFn).error(errorFn);
     }
 
     $scope.searchTitleAndDescriptionOnly = function() {
@@ -113,18 +112,51 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
         $scope.results = data;
         $scope.totalCount = data.hits.total;
-        $state.go("mixChineseSearch");
+        $state.go("advSearch");
       }
       searchService.searchTitleOnly(advanceSearchURL, q).success(successFn).error(errorFn);
 
     }
+
+  $scope.analyzerForCJKAdvSearch = function() {
+    var url = urlConstants.ADV_SEARCH_ANALYSER_CJK;
+    if ($scope.searchText != null) {
+      console.log("analyzerForCJKAdvSearch");
+      var errorFn = function(data) {
+        $scope.error = "No Data Found";
+      }
+      var successFn = function(data) {
+        console.log("successFn data" + JSON.stringify(data));
+
+        $scope.cjkBiGram = data;
+      }
+      searchService.searchTitleOnly(url, $scope.searchText).success(successFn).error(errorFn);
+    }
+
+  }
+  $scope.analyzerForHanAdvSearch = function() {
+    var url = urlConstants.ADV_SEARCH_ANALYSER_HAN;
+    if ($scope.searchText != null) {
+      console.log("analyzerForHanAdvSearch");
+      var errorFn = function(data) {
+        $scope.error = "No Data Found";
+      }
+      var successFn = function(data) {
+        console.log("successFn data" + JSON.stringify(data));
+
+        $scope.hanGram = data;
+      }
+      searchService.searchTitleOnly(url, $scope.searchText).success(successFn).error(errorFn);
+    }
+
+  }
 
     $scope.searchTitleOnly = function() {
       console.log("inside searchTitleOnly Lang" + $scope.searchLang);
       var elasticQuery = ''
       if ($scope.searchLang == undefined) {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-        elasticQuery = {"query": {"match_phrase": {"C_title": $scope.searchText}}};
+        elasticQuery = {"query": {"match": {"C_title": $scope.searchText}}};
       } else if ($scope.searchLang == 'Chinese') {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
         elasticQuery = {
@@ -145,9 +177,9 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
         $scope.results = data;
         $scope.totalCount = data.hits.total;
-        $state.go("mixChineseSearch");
+        $state.go("advSearch");
       }
-      advsearchService.searchTitleOnly(advanceSearchURL, q).success(successFn).error(errorFn);
+      searchService.searchTitleOnly(advanceSearchURL, q).success(successFn).error(errorFn);
 
     }
 
@@ -202,4 +234,66 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
       //TODO
     }
 
-  }});
+
+
+
+
+  $scope.basicSmartCNSearchAll = function(){
+    console.log("inside searchAll ===== "+$scope.searchText);
+    //  var serviceURL = "data/chineseSearch.json";
+    var q = JSON.stringify({"query":{"match_all":{}}});
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("smarctcnBasicSearch");
+    }
+    searchService.searchAll(urlConstants.SMARTCN_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
+  }
+
+
+
+
+
+
+  $scope.smartcnAnalyzerBIGram = function() {
+    if ($scope.searchText != null) {
+      console.log("smartcnAnalyzerBIGram");
+      // var cjkAnalyseUrl = "http://localhost:9200/eng_chn_keyword/_analyze?analyzer=cjk";
+      var errorFn = function(data) {
+        $scope.error = "No Data Found";
+      }
+      var successFn = function(data) {
+        console.log("successFn data" + JSON.stringify(data));
+
+        $scope.smartCNGram = data;
+      }
+      searchService.searchTitleOnly(urlConstants.SMARTCN_ANALYSER_URL, $scope.searchText).success(successFn).error(errorFn);
+    }
+
+  }
+
+  $scope.basicSmartCNSearchTitleOnly = function() {
+    console.log("inside searchTitleOnly");
+    var q = JSON.stringify({"query": {"match": {"chinese_title": $scope.searchText}}});
+    //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
+    var errorFn = function(data) {
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data" + JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("smarctcnBasicSearch");
+    }
+    searchService.searchTitleOnly(urlConstants.SMARTCN_SIMPLE_SEARCH_URL, q).success(successFn).error(errorFn);
+
+  }
+
+
+  });

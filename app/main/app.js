@@ -17,6 +17,11 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider ) {
             templateUrl: 'app/chineseSearch/chineseSearch.tpl.html',
             controller: 'searchCtrl'
         })
+      .state('smarctcnBasicSearch', {
+        url: '/smarctcnBasicSearch',
+        templateUrl: 'app/chineseSearch/smarctcnBasicSearch.tpl.html',
+        controller: 'searchCtrl'
+      })
       .state('boolSearch', {
           url: '/boolSearch',
           templateUrl: 'app/chineseSearch/boolSearch.tpl.html',
