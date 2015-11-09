@@ -34,7 +34,7 @@ mainApp.constant('urlConstants', {
     "ADV_MAIN_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain/hksearch/page/_search?size=30",
     "ADV_SEARCH_ANALYSER_CJK" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/hksearch/_analyze?analyzer=cjk",
     "ADV_SEARCH_ANALYSER_HAN" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/hksearch/_analyze?analyzer=han_bigrams",
-    "ADV_MAIN_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0//hksearch/page/_search?size=30",
+    "ADV_MAIN_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/hksearch/page/_search?size=30",
 
     "SMARTCN_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword_smartcn/page/_search?explain",
 
