@@ -22,7 +22,7 @@ mainApp.constant('urlConstants', {
 
     ///Alpha
     //searchCtrl.js
-    "SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/poc_catalog/page/_search?explain",
+    "SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/poc_catalog/page/_search?size=100",
 
     "ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/poc_catalog/_analyze?analyzer=cjk",
     //homeCtrl.js
