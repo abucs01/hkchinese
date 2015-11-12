@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header search-heading">
-              Enter Minimum two Logo Gram(Chinese Character)  <input ng-model="searchText" class="form-control search-text-box" minlength="2" placeholder=" Search ...">
+              Enter Minimum two Logo Gram(Chinese Character)  <input ng-model="searchText" class="form-control search-text-box"  placeholder=" Search ...">
             </h1>
             <div class="text-center">
                 <div class="col-lg-4">
@@ -55,8 +55,8 @@
                                     <tr ng-repeat="result in results.hits.hits">
                                         <td>{{$index + 1}}</td>
                                         <td>{{ result._score }}</td>
-                                        <td>{{ result._source.english_title }}</td>
-                                        <td>{{ result._source.chinese_title }}</td>
+                                        <td>{{ result._source.E_title }}</td>
+                                        <td>{{ result._source.C_title }}</td>
                                     </tr>
                                 </tbody>
                             </table>
