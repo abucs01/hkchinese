@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header search-heading">
+              Enter Text<input ng-model="searchText" class="form-control search-text-box"  placeholder=" Search ...">
+            </h1>
+            <div class="text-center">
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="basicSearchSuggestorAll()">Search All Products</button>
+                </div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="basicSearchSuggestorTitleOnly() ; basicSearchFucntionScoreTitleOnly()">Search in Chinese Title Only</button>
+                </div>
+
+            </div>
+            <div class="text-center">
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        BI Gram
+                    </h3>
+                </div>
+              <div class="col-lg-12">
+                <h3 class="search-heading">
+                  Total Count:   <input ng-model="totalCount" class="form-control count-text-box" disabled="true">
+                </h3>
+              </div>
+            </div>
+
+            <div class="text-center">
+                <div class="col-lg-12">
+                    <h3 class="search-heading">
+                        Suggestor:::
+                        <pre>{{suggestor}}</pre>
+                    </h3>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Function Score Table
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Score</th>
+                                        <th>English</th>
+                                        <th>Chinese</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="functionscore in functionscore.hits.hits">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{ functionscore._score }}</td>
+                                        <td>{{ functionscore._source.E_title }}</td>
+                                        <td>{{ functionscore._source.C_title }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+     </div>
+</div>

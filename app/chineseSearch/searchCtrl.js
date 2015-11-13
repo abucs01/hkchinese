@@ -7,6 +7,8 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
     $scope.cjkBiGram ;
     $scope.smartCNGram ;
     $scope.hanGram ;
+    $scope.suggestor ;
+  $scope.functionscore;
     $scope.totalCount=0;
     var simpleSearchURL = urlConstants.SIMPLE_SEARCH_URL;
     var advanceSearchURL = urlConstants.ADV_SEARCH_URL ;
@@ -49,6 +51,60 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
       }
 
     }
+
+
+  $scope.basicSearchSuggestorAll = function(){
+    console.log("inside searchAll ===== "+$scope.searchText);
+    //  var serviceURL = "data/chineseSearch.json";
+    var q = JSON.stringify({"query":{"match_all":{}}});
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.functionscore = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("chineseSuggestFunctionScoreSearch");
+    }
+    searchService.searchAll(simpleSearchURL,q).success(successFn).error(errorFn);
+  }
+
+
+  $scope.basicSearchSuggestorTitleOnly = function() {
+    console.log("inside searchTitleOnly");
+    var q = JSON.stringify({"suggest": {"text" :$scope.searchText , "term_suggester": {"term": {"field": "C_title"}},"phrase_suggester": {"phrase": {"field": "C_title", "size": 1, "real_word_error_likelihood": 0.95, "max_errors": 0.9, "direct_generator": [{"field": "C_title","suggest_mode": "always","min_word_length": 1}],"analyzer":"han_bigrams","confidence": 2 }}}});
+    //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
+    var errorFn = function(data) {
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data" + JSON.stringify(data));
+
+      $scope.suggestor = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("chineseSuggestFunctionScoreSearch");
+    }
+    searchService.searchTitleOnly(simpleSearchURL, q).success(successFn).error(errorFn);
+
+  }
+  $scope.basicSearchFucntionScoreTitleOnly = function() {
+    console.log("inside searchTitleOnly");
+    var q = JSON.stringify({"query": {"function_score": {"query":{"filtered" : {"query":{"bool" : {"should": [{"multi_match" : {"query":$scope.searchText , "type": "cross_fields", "operator": "and", "fields": [ "C_title^4"], "tie_breaker": 1}}]}}}}}}});
+    //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
+    var errorFn = function(data) {
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data" + JSON.stringify(data));
+
+      $scope.functionscore = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("chineseSuggestFunctionScoreSearch");
+    }
+    searchService.searchTitleOnly(simpleSearchURL, q).success(successFn).error(errorFn);
+
+  }
 
     $scope.basicSearchTitleOnly = function() {
       console.log("inside searchTitleOnly");
