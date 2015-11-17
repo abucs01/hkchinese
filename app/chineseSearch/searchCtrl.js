@@ -47,7 +47,7 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
           $scope.cjkBiGram = data;
         }
-        searchService.searchTitleOnly(urlConstants.ANALYSER_URL, $scope.searchText).success(successFn).error(errorFn);
+        searchService.searchTitleOnly(urlConstants.ADV_SEARCH_ANALYSER_CJK, $scope.searchText).success(successFn).error(errorFn);
       }
 
     }
@@ -145,9 +145,60 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
       console.log("inside searchTitleOnly Lang" + $scope.searchLang);
       var elasticQuery = ''
       if ($scope.searchLang == undefined) {
-        elasticQuery = {"query": {"multi_match": {"query": $scope.searchText, "fields": ["C_description", "C_title"]}}};
+        //elasticQuery = {"query": {"multi_match": {"query": $scope.searchText, "fields": ["C_description", "C_title"]}}};
+       elasticQuery = {
+         "size":"30",
+         "from":0,
+         "query":{
+           "filtered":{
+             "query":{
+               "bool":{
+                 "should":[
+                   {
+                     "multi_match":{
+                       "query":$scope.searchText,
+                       "type":"cross_fields",
+                       "fields":[
+                         "C_title",
+                         "C_description"
+                       ],
+                       "minimum_should_match":"60<90%"
+                     }
+                   }
+                 ]
+               }
+             }
+           }
+         }
+       };
       } else if ($scope.searchLang == 'Chinese') {
-        elasticQuery = {"query": {"multi_match": {"query": $scope.searchText, "fields": ["C_description", "C_title"]}}};
+        //elasticQuery = {"query": {"multi_match": {"query": $scope.searchText, "fields": ["C_description", "C_title"]}}};
+        elasticQuery = {
+          "size":"30",
+          "from":0,
+          "query":{
+            "filtered":{
+              "query":{
+                "bool":{
+                  "should":[
+                    {
+                      "multi_match":{
+                        "query":$scope.searchText,
+                        "type":"cross_fields",
+                        "fields":[
+                          "C_title",
+                          "C_description"
+                        ],
+                        "minimum_should_match":"80%"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        };
+
       } else if ($scope.searchLang == 'English') {
         elasticQuery = {
           "query": {
@@ -212,13 +263,16 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
       var elasticQuery = ''
       if ($scope.searchLang == undefined) {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-        elasticQuery = {"query": {"match": {"C_title": $scope.searchText}}};
+        elasticQuery = {"query": {"match_phrase": {"C_title": $scope.searchText}}};
       } else if ($scope.searchLang == 'Chinese') {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-        elasticQuery = {
-          "query": {"match_phrase": {"C_title": $scope.searchText}},
-          "highlight": {"fields": {"C_title": {}}}
-        };
+        elasticQuery = {"query":{ "match_phrase" : {
+          "C_title" : {
+            "query" : $scope.searchText,
+            "minimum_should_match":"80%"
+          }
+        }
+        }};
       } else if ($scope.searchLang == 'English') {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["sugg_title"]}}} ;
         elasticQuery = {"query": {"match_phrase": {"sugg_title": $scope.searchText}}};

@@ -5,7 +5,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.totalCount=0;
-    var mainUrl = urlConstants.ADV_MAIN_URL;
+    var mainUrl = urlConstants.MIX_SIMPLE_SEARCH_URL;
     $scope.searchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
     //  var serviceURL = "data/chineseSearch.json";
@@ -27,11 +27,11 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       console.log("inside searchTitleOnly Lang"+$scope.searchLang);
       var elasticQuery = ''
       if($scope.searchLang ==  undefined){
-        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["C_description","C_title"]}}} ;
+        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["chinese_title"]}}} ;
       }else if($scope.searchLang == 'Chinese'){
-        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["C_description","C_title"]}}} ;
+        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["chinese_title"]}}} ;
       }else if($scope.searchLang == 'English'){
-        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["E_description","sugg_title","E_title"]}}} ;
+        elasticQuery = {"query":{"multi_match":{"query":$scope.searchText,"fields":["english_title"]}}} ;
       }
       console.log("inside searchTitleOnly Lang Query"+JSON.stringify(elasticQuery));
       var q = JSON.stringify(elasticQuery);
@@ -55,13 +55,26 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
     var elasticQuery = ''
     if($scope.searchLang ==  undefined){
      // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-      elasticQuery = {"query":{"match_phrase":{"C_title":$scope.searchText}}};
+     // elasticQuery = {"query":{"match_phrase":{"chinese_title":$scope.searchText}}};
+      elasticQuery = {"query":{
+        "multi_match" : {
+          "query" : $scope.searchText,
+          "fields" : [ "chinese_title^3", "english_title^2" ]
+        }
+      }
+      } ;
     }else if($scope.searchLang == 'Chinese'){
-     // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-      elasticQuery = {"query":{"match_phrase":{"C_title":$scope.searchText}}, "highlight": {"fields" : {"C_title" : {}}}};
+     elasticQuery = {"query":{
+       "multi_match" : {
+         "query" : $scope.searchText,
+         "fields" : [ "chinese_title^3", "english_title" ]
+       }
+     }
+     } ;
+      //elasticQuery = {"query":{"match_phrase":{"chinese_title":$scope.searchText}}, "highlight": {"fields" : {"chinese_title" : {}}}};
     }else if($scope.searchLang == 'English'){
      // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["sugg_title"]}}} ;
-      elasticQuery = {"query":{"match_phrase":{"sugg_title":$scope.searchText}}};
+      elasticQuery = {"query":{"match_phrase":{"english_title":$scope.searchText}}};
     }
     console.log("inside searchTitleOnly Lang Query"+JSON.stringify(elasticQuery));
     var q = JSON.stringify(elasticQuery);

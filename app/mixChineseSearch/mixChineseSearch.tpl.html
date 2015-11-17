@@ -24,9 +24,7 @@
                 <div class="col-lg-4">
                     <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchAll()">View All Products </button>
                 </div>
-                <div class="col-lg-4">
-                    <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleAndDescriptionOnly()">Search in Title and Description</button>
-                </div>
+
                 <div class="col-lg-4">
                     <button type="button" class="btn btn-outline btn-primary btn-lg btn-block" ng-click="searchTitleOnly()">Search Title </button>
                 </div>
@@ -54,19 +52,18 @@
                                         <th>#</th>
                                         <th>Score</th>
                                         <th>English</th>
-                                        <th>English Description</th>
+
                                         <th>Chinese</th>
-                                        <th>Chinese Description</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="result in results.hits.hits">
                                         <td>{{$index + 1}}</td>
                                         <td>{{ result._score }}</td>
-                                        <td>{{ result._source.E_title }}</td>
-                                        <td>{{ result._source.E_description }}</td>
-                                        <td><em>{{ result._source.C_title }}</em></td>
-                                        <td>{{ result._source.C_description }}</td>
+                                        <td>{{ result._source.english_title }}</td>
+                                        <td><em>{{ result._source.chinese_title }}</em></td>
+
                                     </tr>
                                 </tbody>
                             </table>
