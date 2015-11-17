@@ -108,7 +108,13 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
     $scope.basicSearchTitleOnly = function() {
       console.log("inside searchTitleOnly");
-      var q = JSON.stringify({"query": {"match_phrase": {"C_title": $scope.searchText}}});
+      var q = JSON.stringify({"query":{ "match_phrase" : {
+        "C_title" : {
+          "query" : $scope.searchText,
+          "minimum_should_match":"80%"
+        }
+      }
+      }});
       //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
       var errorFn = function(data) {
         $scope.error = "No Data Found";
