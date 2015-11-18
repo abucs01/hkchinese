@@ -108,13 +108,28 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
     $scope.basicSearchTitleOnly = function() {
       console.log("inside searchTitleOnly");
-      var q = JSON.stringify({"query":{ "match_phrase" : {
-        "C_title" : {
-          "query" : $scope.searchText,
-          "minimum_should_match":"80%"
+      var q = JSON.stringify({
+        "size":"30",
+        "from":0,
+        "query":{
+          "filtered":{
+            "query":{
+              "bool":{
+                "should":[
+                  {
+                    "match":{
+                      "C_title":{
+                        "query":$scope.searchText,
+                        "minimum_should_match":"60<90%"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
-      }
-      }});
+      });
       //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
       var errorFn = function(data) {
         $scope.error = "No Data Found";
@@ -269,16 +284,52 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
       var elasticQuery = ''
       if ($scope.searchLang == undefined) {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-        elasticQuery = {"query": {"match_phrase": {"C_title": $scope.searchText}}};
+        elasticQuery = {
+          "size":"30",
+          "from":0,
+          "query":{
+            "filtered":{
+              "query":{
+                "bool":{
+                  "should":[
+                    {
+                      "match":{
+                        "C_title":{
+                          "query":$scope.searchText,
+                          "minimum_should_match":"60<90%"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        };
       } else if ($scope.searchLang == 'Chinese') {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
-        elasticQuery = {"query":{ "match_phrase" : {
-          "C_title" : {
-            "query" : $scope.searchText,
-            "minimum_should_match":"80%"
+        elasticQuery = {
+          "size":"30",
+          "from":0,
+          "query":{
+            "filtered":{
+              "query":{
+                "bool":{
+                  "should":[
+                    {
+                      "match":{
+                        "C_title":{
+                          "query":$scope.searchText,
+                          "minimum_should_match":"60<90%"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
-        }
-        }};
+        };
       } else if ($scope.searchLang == 'English') {
         // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["sugg_title"]}}} ;
         elasticQuery = {"query": {"match_phrase": {"sugg_title": $scope.searchText}}};
