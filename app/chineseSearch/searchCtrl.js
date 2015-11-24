@@ -451,7 +451,13 @@ mainApp.controller('searchCtrl', function ($scope, $rootScope, $log, $state, $st
 
   $scope.basicSmartCNSearchTitleOnly = function() {
     console.log("inside searchTitleOnly");
-    var q = JSON.stringify({"query": {"match": {"chinese_title": $scope.searchText}}});
+    var q = JSON.stringify({"query":{
+      "multi_match" : {
+        "query" : $scope.searchText,
+        "fields" : [ "chinese_title", "sugg_title^3" ]
+      }
+    }
+    });
     //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
     var errorFn = function(data) {
       $scope.error = "No Data Found";

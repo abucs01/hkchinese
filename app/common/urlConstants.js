@@ -16,9 +16,9 @@ mainApp.constant('urlConstants', {
     //"ADV_SEARCH_ANALYSER_HAN" :"http://localhost:9200/hksearch/_analyze?analyzer=han_bigrams",
     //"ADV_MAIN_URL" :"http://localhost:9200/hksearch/page/_search?size=30",
 
-    //"SMARTCN_SIMPLE_SEARCH_URL" :"http://localhost:9200/eng_chn_keyword_smartcn/page/_search?explain",
+    //"SMARTCN_SIMPLE_SEARCH_URL" :"http://localhost:9200/eng_chn_keyword_smartcn/page/_search?size=100",
 
-   //"SMARTCN_ANALYSER_URL" :"http://localhost:9200/eng_chn_keyword_smartcn/_analyze?analyzer=smartcn",
+  //  "SMARTCN_ANALYSER_URL" :"http://localhost:9200/eng_chn_keyword_smartcn/_analyze?analyzer=smartcn",
 
     ///Alpha
     //searchCtrl.js
@@ -45,5 +45,5 @@ mainApp.constant('urlConstants', {
 
     "SMARTCN_ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword_smartcn/_analyze?analyzer=smartcn",
 
-    "MIX_SIMPLE_SEARCH_URL" :"http://localhost:9200/eng_chn_keyword/page/_search?explain"
+    "MIX_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain"
 });

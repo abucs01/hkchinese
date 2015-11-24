@@ -59,7 +59,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       elasticQuery = {"query":{
         "multi_match" : {
           "query" : $scope.searchText,
-          "fields" : [ "chinese_title^3", "english_title^2" ]
+          "fields" : [ "chinese_title^3", "english_title^3" ]
         }
       }
       } ;
@@ -89,6 +89,75 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       $state.go("mixChineseSearch");
     }
     advsearchService.searchTitleOnly(mainUrl,q).success(successFn).error(errorFn);
+
+  }
+
+
+  $scope.basicSmartCNSearchAll = function(){
+    console.log("inside searchAll ===== "+$scope.searchText);
+    //  var serviceURL = "data/chineseSearch.json";
+    var q = JSON.stringify({"query":{"match_all":{}}});
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("mixChineseSearch");
+    }
+    advsearchService.searchAll(urlConstants.SMARTCN_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
+  }
+
+
+
+
+
+
+  $scope.smartcnAnalyzerBIGram = function() {
+    if ($scope.searchText != null) {
+      console.log("smartcnAnalyzerBIGram");
+      // var cjkAnalyseUrl = "http://localhost:9200/eng_chn_keyword/_analyze?analyzer=cjk";
+      var errorFn = function(data) {
+        $scope.error = "No Data Found";
+      }
+      var successFn = function(data) {
+        console.log("successFn data" + JSON.stringify(data));
+
+        $scope.smartCNGram = data;
+      }
+      advsearchService.searchTitleOnly(urlConstants.SMARTCN_ANALYSER_URL, $scope.searchText).success(successFn).error(errorFn);
+    }
+
+  }
+
+  $scope.aggSearch = function(){
+    console.log("inside agg search");
+    var q = JSON.stringify();
+  }
+
+  $scope.basicSmartCNSearchTitleOnly = function() {
+    console.log("inside searchTitleOnly");
+    var q = JSON.stringify({"query":{
+      "multi_match" : {
+        "query" : $scope.searchText,
+        "fields" : [ "chinese_title", "sugg_title^3" ]
+      }
+    }
+    });
+    //var q = JSON.stringify({"query":{"match":{"english_title":$scope.searchText}}});
+    var errorFn = function(data) {
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data" + JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("mixChineseSearch");
+    }
+    advsearchService.searchTitleOnly(urlConstants.SMARTCN_SIMPLE_SEARCH_URL, q).success(successFn).error(errorFn);
 
   }
 
