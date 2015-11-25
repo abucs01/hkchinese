@@ -142,7 +142,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
     var q = JSON.stringify({"query":{
       "multi_match" : {
         "query" : $scope.searchText,
-        "fields" : [ "chinese_title", "sugg_title^3" ]
+        "fields" : [ "chinese_title", "sugg_title" ]
       }
     }
     });
