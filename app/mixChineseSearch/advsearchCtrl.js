@@ -5,6 +5,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
     $scope.test="ANGULAR TEST";
     $scope.results;
     $scope.totalCount=0;
+    $scope.showAll;
     var mainUrl = urlConstants.MIX_SIMPLE_SEARCH_URL;
     $scope.searchAll = function(){
       console.log("inside searchAll ===== "+$scope.searchText);
@@ -52,6 +53,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
 
   $scope.searchTitleOnly =function(){
     console.log("inside searchTitleOnly Lang"+$scope.searchLang);
+    $scope.showAll = false;
     var elasticQuery = ''
     if($scope.searchLang ==  undefined){
      // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["C_title"]}}} ;
@@ -59,7 +61,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       elasticQuery = {"query":{
         "multi_match" : {
           "query" : $scope.searchText,
-          "fields" : [ "chinese_title^3", "english_title^3" ]
+          "fields" : [ "mixed_english_title", "mixed_chinese_title" ]
         }
       }
       } ;
@@ -67,14 +69,20 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
      elasticQuery = {"query":{
        "multi_match" : {
          "query" : $scope.searchText,
-         "fields" : [ "chinese_title^3", "english_title" ]
+         "fields" : [ "mixed_english_title", "mixed_chinese_title" ]
        }
      }
      } ;
       //elasticQuery = {"query":{"match_phrase":{"chinese_title":$scope.searchText}}, "highlight": {"fields" : {"chinese_title" : {}}}};
     }else if($scope.searchLang == 'English'){
      // elasticQuery = {"query":{"match_phrase":{"query":$scope.searchText,"fields":["sugg_title"]}}} ;
-      elasticQuery = {"query":{"match_phrase":{"english_title":$scope.searchText}}};
+      elasticQuery = {"query":{
+        "multi_match" : {
+          "query" : $scope.searchText,
+          "fields" : [ "mixed_english_title", "mixed_chinese_title" ]
+        }
+      }
+      } ;
     }
     console.log("inside searchTitleOnly Lang Query"+JSON.stringify(elasticQuery));
     var q = JSON.stringify(elasticQuery);
@@ -88,13 +96,14 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       $scope.totalCount = data.hits.total;
       $state.go("mixChineseSearch");
     }
-    advsearchService.searchTitleOnly(mainUrl,q).success(successFn).error(errorFn);
+    advsearchService.searchTitleOnly(urlConstants.MIX_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
 
   }
 
 
   $scope.basicSmartCNSearchAll = function(){
     console.log("inside searchAll ===== "+$scope.searchText);
+    $scope.showAll = true;
     //  var serviceURL = "data/chineseSearch.json";
     var q = JSON.stringify({"query":{"match_all":{}}});
     var errorFn = function(data){
@@ -107,7 +116,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       $scope.totalCount = data.hits.total;
       $state.go("mixChineseSearch");
     }
-    advsearchService.searchAll(urlConstants.SMARTCN_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
+    advsearchService.searchAll(urlConstants.MIX_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
   }
 
 
@@ -157,7 +166,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       $scope.totalCount = data.hits.total;
       $state.go("mixChineseSearch");
     }
-    advsearchService.searchTitleOnly(urlConstants.SMARTCN_SIMPLE_SEARCH_URL, q).success(successFn).error(errorFn);
+    advsearchService.searchTitleOnly(urlConstants.MIX_SIMPLE_SEARCH_URL, q).success(successFn).error(errorFn);
 
   }
 

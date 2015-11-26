@@ -43,7 +43,7 @@ mainApp.constant('urlConstants', {
 
     "SMARTCN_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword_smartcn/page/_search?size=100",
 
-    "SMARTCN_ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword_smartcn/_analyze?analyzer=smartcn",
+    "SMARTCN_ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_mix_smartcn/_analyze?analyzer=smartcn",
 
-    "MIX_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_keyword/page/_search?explain"
+    "MIX_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_mix_smartcn/page/_search?size=100"
 });
