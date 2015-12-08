@@ -50,6 +50,89 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
 
     }
 
+  $scope.searchEnglishTitleOnly =function(){
+    console.log("inside searchTitleOnly Lang"+$scope.searchLang);
+    $scope.showAll = false;
+    var elasticQuery = ''
+    elasticQuery = {
+        "query":{
+        "filtered":{
+          "query":{
+            "bool":{
+              "should":[
+                {
+                  "match":{
+                    "sugg_title":{
+                      "query":$scope.searchText,
+                      "minimum_should_match":"60<90%"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    } ;
+
+
+    console.log("inside searchTitleOnly Lang Query"+JSON.stringify(elasticQuery));
+    var q = JSON.stringify(elasticQuery);
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("mixChineseSearch");
+    }
+    advsearchService.searchTitleOnly(urlConstants.MIX_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
+
+  }
+
+  $scope.searchChineseTitleOnly =function(){
+    console.log("inside searchTitleOnly Lang"+$scope.searchLang);
+    $scope.showAll = false;
+    var elasticQuery = ''
+    elasticQuery = {"query":{
+      "filtered":{
+        "query":{
+          "bool":{
+            "should":[
+              {
+                "match":{
+                  "chinese_title":{
+                    "query":$scope.searchText,
+                    "minimum_should_match":"60<90%"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+    } ;
+
+
+
+    console.log("inside searchTitleOnly Lang Query"+JSON.stringify(elasticQuery));
+    var q = JSON.stringify(elasticQuery);
+    var errorFn = function(data){
+      $scope.error = "No Data Found";
+    }
+    var successFn = function(data) {
+      console.log("successFn data"+JSON.stringify(data));
+
+      $scope.results = data;
+      $scope.totalCount = data.hits.total;
+      $state.go("mixChineseSearch");
+    }
+    advsearchService.searchTitleOnly(urlConstants.MIX_SIMPLE_SEARCH_URL,q).success(successFn).error(errorFn);
+
+  }
 
   $scope.searchTitleOnly =function(){
     console.log("inside searchTitleOnly Lang"+$scope.searchLang);
