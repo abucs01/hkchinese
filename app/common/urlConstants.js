@@ -45,5 +45,5 @@ mainApp.constant('urlConstants', {
 
     "SMARTCN_ANALYSER_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_mix_smartcn/_analyze?analyzer=smartcn",
 
-    "MIX_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_mix_smartcn/page/_search?size=100"
+    "MIX_SIMPLE_SEARCH_URL" :"http://indexer.ecommerce-api.alpha.redmart.com/v1.0.0/eng_chn_mix_smartcn/page/_search?size=100&explain=true"
 });

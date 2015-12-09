@@ -69,12 +69,13 @@
                                     <th>Score</th>
                                     <th ng-show="searchLang == 'English' || showAll">English</th>
                                     <th ng-show="searchLang == 'Chinese' || searchLang == undefined || showAll ">Chinese</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="result in results.hits.hits">
                                     <td>{{$index + 1}}</td>
-                                    <td>{{ result._score }}</td>
+                                    <td>{{ result._score }}  -- <div ng-repeat="relavance in result._explanation.details"> <div ng-repeat="detail in relavance.details">{{ detail.value }}- {{ detail.description }}</div></div> </td>
                                     <td ng-show="searchLang == 'English' || showAll">{{ result._source.english_title }}</td>
                                     <td ng-show="searchLang == 'Chinese' || searchLang == undefined || showAll ">{{ result._source.chinese_title }}</td>
                                 </tr>
@@ -84,6 +85,7 @@
                         <!-- /.table-responsive -->
                     </div>
                     <!-- /.panel-body -->
+
                 </div>
                 <!-- /.panel -->
             </div>
