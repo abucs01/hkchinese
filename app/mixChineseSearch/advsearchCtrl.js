@@ -162,7 +162,7 @@ mainApp.controller('advsearchCtrl', function ($scope, $rootScope, $log, $state, 
       elasticQuery = {"query":{
         "multi_match" : {
           "query" : $scope.searchText,
-          "fields" : [ "sugg_title" ],  "minimum_should_match":"60<90%"
+          "fields" : [ "mixed_english_title", "mixed_chinese_title" ],  "minimum_should_match":"60<90%"
         }
       }
       } ;
